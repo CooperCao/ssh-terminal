@@ -1,0 +1,7 @@
+{
+  "oneOf": [
+    {
+      "$ref": "simple-config.schema.json"
+    }
+  ]
+}
