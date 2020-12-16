@@ -4,8 +4,8 @@ import * as fse from "fs-extra";
 
 const VENDOR_FOLDER = ".vscode";
 
-export const CONGIF_FILENAME = "ssh.json";
-export const CONFIG_PATH = path.join(VENDOR_FOLDER, CONGIF_FILENAME);
+const CONFIG_FILENAME = "ssh.json";
+const CONFIG_PATH = path.join(VENDOR_FOLDER, CONFIG_FILENAME);
 
 function getConfigPath(basePath: string) {
   return path.join(basePath, CONFIG_PATH);
@@ -35,9 +35,18 @@ export async function activate(context: vscode.ExtensionContext) {
   const remoteConfig = await setup();
   // args from tasks.json inputs args
   let open = vscode.commands.registerCommand("ssh-terminal.open", (args) => {
-    vscode.window.showInformationMessage(
-      "Connect to ssh..." + remoteConfig.host
+    var terminal = vscode.window.terminals.find(
+      (bash) => bash.name == remoteConfig.name
     );
+
+    if (terminal != undefined) {
+      vscode.window.showInformationMessage(
+        "Already Connect to " + remoteConfig.host
+      );
+      terminal.show();
+      return;
+    }
+    vscode.window.showInformationMessage("Connect to " + remoteConfig.host);
     const sshConfig = {
       host: remoteConfig.host,
       port: remoteConfig.port,
@@ -53,22 +62,33 @@ export async function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(open);
 
   let run = vscode.commands.registerCommand("ssh-terminal.run", (args) => {
+    let cmd = args;
     if (args == undefined) {
+      cmd = remoteConfig.command;
+    }
+    if (cmd == undefined) {
+      vscode.window.showInformationMessage("No found command");
       return;
     }
-    vscode.window.terminals.forEach((bash) => {
-      if (bash.name == remoteConfig.name) {
-        bash?.sendText(args);
-      }
-    });
+
+    var bash = vscode.window.terminals.find(
+      (bash) => bash.name == remoteConfig.name
+    );
+
+    if (bash == undefined) {
+      vscode.window.showInformationMessage(
+        "Please run Open SSH-Terminal first"
+      );
+      return;
+    }
+    bash.sendText(cmd);
   });
 
   let close = vscode.commands.registerCommand("ssh-terminal.close", () => {
-    vscode.window.terminals.forEach((bash) => {
-      if (bash.name == remoteConfig.name) {
-        bash.dispose();
-      }
-    });
+    var bash = vscode.window.terminals.find(
+      (bash) => bash.name == remoteConfig.name
+    );
+    bash?.dispose();
   });
 
   context.subscriptions.push(run);

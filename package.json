@@ -4,7 +4,7 @@
 	"description": "ssh terminal",
 	"publisher": "cooper",
 	"author": "cooper <caopeng89@hotmail.com> (https://github.com/CooperCao)",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"engines": {
 		"vscode": "^1.52.0"
 	},
@@ -30,18 +30,17 @@
 	"icon": "resources/icon.png",
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [
-			{
+		"commands": [{
 				"command": "ssh-terminal.open",
-				"title": "Open ssh-terminal"
+				"title": "Open SSH-Terminal"
 			},
 			{
 				"command": "ssh-terminal.run",
-				"title": "Run on ssh-terminal"
+				"title": "Run on SSH-Terminal"
 			},
 			{
 				"command": "ssh-terminal.close",
-				"title": "Close ssh-terminal"
+				"title": "Close SSH-Terminal"
 			}
 		]
 	},
