@@ -9,6 +9,7 @@ ssh terminal extension for VS Code
      "host": "host",
      "port": 22,
      "username": "user name",
+     "initPath": "init path",
      "command": "ls -lh"
 }
 ```

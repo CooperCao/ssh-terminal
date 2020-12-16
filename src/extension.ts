@@ -103,7 +103,12 @@ export async function activate(context: vscode.ExtensionContext) {
       username: remoteConfig.username,
     };
     let sshCommand;
-    sshCommand = getSshCommand(sshConfig);
+    var extraOption;
+    if (remoteConfig.initPath != undefined) {
+      extraOption = `'cd ${remoteConfig.initPath} ; bash'`;
+    }
+
+    sshCommand = getSshCommand(sshConfig, extraOption);
     const bash = vscode.window.createTerminal(remoteConfig.name);
     bash.sendText(sshCommand);
     bash.show();
