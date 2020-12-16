@@ -30,8 +30,7 @@
 	"icon": "resources/icon.png",
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [
-			{
+		"commands": [{
 				"command": "ssh-terminal.open",
 				"title": "Open ssh-terminal"
 			},
@@ -47,11 +46,13 @@
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
+		"compile": "webpack --mode production",
+		"dev": "webpack --mode development --watch",
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile && npm run lint",
 		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
+		"test": "node ./out/test/runTest.js",
+		"package": "vsce package"
 	},
 	"devDependencies": {
 		"@types/fs-extra": "^5.1.0",
