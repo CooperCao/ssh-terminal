@@ -34,7 +34,7 @@ function getSshCommand(
 export async function activate(context: vscode.ExtensionContext) {
   const remoteConfig = await setup();
   // args from tasks.json inputs args
-  let open = vscode.commands.registerCommand("ssh-bash.open", (args) => {
+  let open = vscode.commands.registerCommand("ssh-terminal.open", (args) => {
     vscode.window.showInformationMessage(
       "Connect to ssh..." + remoteConfig.host
     );
@@ -52,7 +52,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(open);
 
-  let run = vscode.commands.registerCommand("ssh-bash.run", (args) => {
+  let run = vscode.commands.registerCommand("ssh-terminal.run", (args) => {
     if (args == undefined) {
       return;
     }
@@ -63,7 +63,7 @@ export async function activate(context: vscode.ExtensionContext) {
     });
   });
 
-  let close = vscode.commands.registerCommand("ssh-bash.close", () => {
+  let close = vscode.commands.registerCommand("ssh-terminal.close", () => {
     vscode.window.terminals.forEach((bash) => {
       if (bash.name == remoteConfig.name) {
         bash.dispose();
