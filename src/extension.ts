@@ -48,7 +48,7 @@ function isInWorkspace(filepath: string) {
   return (
     workspaceFolders &&
     workspaceFolders.some(
-      // vscode can't keep filepath's stable, covert them to toLowerCase before check
+      // vscode can't keep file path's stable, covert them to toLowerCase before check
       (folder) =>
         filepath.toLowerCase().indexOf(folder.uri.fsPath.toLowerCase()) === 0
     )
