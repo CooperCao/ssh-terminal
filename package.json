@@ -8,8 +8,18 @@
 	"engines": {
 		"vscode": "^1.52.0"
 	},
+	"homepage": "https://github.com/CooperCao/ssh-terminal/wiki",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/CooperCao/ssh-terminal.git"
+	},
 	"categories": [
 		"Other"
+	],
+	"keywords": [
+		"ssh",
+		"terminal",
+		"remote"
 	],
 	"activationEvents": [
 		"onCommand:ssh-terminal.open",
@@ -17,6 +27,7 @@
 		"onCommand:ssh-terminal.close",
 		"workspaceContains:.vscode/ssh.json"
 	],
+	"icon": "resources/icon.png",
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
